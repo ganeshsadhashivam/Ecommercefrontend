@@ -1,0 +1,19 @@
+.loginformcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+.loginimagecontainer {
+  background-image: url("../images/login.jpg");
+  height: 100vh;
+  background-size: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .loginimagecontainer {
+    display: row;
+  }
+}

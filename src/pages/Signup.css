@@ -1,0 +1,19 @@
+.signupimagecontainer {
+  background-image: url("../images/signup.webp");
+  height: 100vh;
+  background-size: cover;
+}
+
+.signupformcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .signupimagecontainer {
+    display: row;
+  }
+}
