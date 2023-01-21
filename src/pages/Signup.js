@@ -10,8 +10,10 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [signup, { error, isLoading, isError }] = useSignupMutation();
+  const [signup, { isError, isLoading, error }] = useSignupMutation();
   //handle SignUp
+  console.log(isError);
+  console.log(error);
   const handleSignUp = (e) => {
     e.preventDefault();
     signup({ name, email, password });
@@ -23,7 +25,9 @@ const Signup = () => {
         <Col md={6} className="signupformcontainer">
           <Form style={{ width: "100%" }} onSubmit={handleSignUp}>
             <h1>Create an Account</h1>
-            {isError && <Alert variant="danger">{error.data}</Alert>}
+            {console.log(isError)}
+            {console.log(error)}
+            {isError && <Alert variant="danger">{error}</Alert>}
             <Form.Group onSubmit={handleSignUp}>
               <Form.Label>Name</Form.Label>
               <Form.Control

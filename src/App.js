@@ -7,16 +7,24 @@ import Notfound from "./pages/Notfound";
 import logo from "./logo.svg";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { useSelector } from "react-redux";
+import NewProduct from "./pages/NewProduct";
 function App() {
+  const user = useSelector((state) => state.user);
   return (
     <div className="App">
       <BrowserRouter>
         <Navigation />
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="*" element={<Notfound />} />
+          {!user && (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </>
+          )}
+          <Route path="/new-product" element={<NewProduct />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>
