@@ -9,6 +9,7 @@ import { NavbarBrand } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/userSlice";
 import { Button } from "react-bootstrap";
+
 const Navigation = () => {
   const user = useSelector((state) => state.user);
 
@@ -34,6 +35,7 @@ const Navigation = () => {
             )}
             {/* <Nav.Link href="#link">Link</Nav.Link> */}
             {/* if user  */}
+
             {user && (
               <NavDropdown title={user.email} id="basic-nav-dropdown">
                 {user.isAdmin && (

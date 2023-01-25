@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import ProductPreview from "../components/ProductPreview";
 import axios from "../axios";
-
+import "./CategoryPage.css";
+let count = 0;
 const CategoryPage = () => {
   const { category } = useParams();
   console.log(category);
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const CategoryPage = () => {
       .then((data) => {
         setLoading(false);
         console.log(data);
-        setProducts(data);
+        setProduct(data.data);
       })
       .catch((e) => {
         setLoading(false);
@@ -31,11 +32,22 @@ const CategoryPage = () => {
     <Loading />;
   }
 
-  const productsSearch = Object.keys(products).filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  console.log(product);
+  console.log(searchTerm);
+  console.log(
+    product.filter((p) =>
+      console.log(p.category.toLowerCase().includes("phones".toLowerCase()))
+    )
   );
-
-  console.log(productsSearch);
+  const productsSearch =
+    // const { data } = products;
+    // product.filter((p) =>
+    //   //  p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    //   p.category.toLowerCase().includes(searchTerm.toLowerCase())
+    product.filter((p) =>
+      p.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  console.log(typeof productsSearch);
   return (
     <div className="category-page-container">
       <div
@@ -52,13 +64,20 @@ const CategoryPage = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+      {console.log(productsSearch.length)}
       {productsSearch.length === 0 ? (
         <h1>No Products to show</h1>
       ) : (
         <Container>
-          {productsSearch.map((product) => (
-            <ProductPreview {...product} />
-          ))}
+          <Row>
+            <Col md={{ span: 10, offset: 1 }}>
+              <div className="d-flex justify-content-center align-items-center flex-wrap">
+                {productsSearch.map((product) => (
+                  <ProductPreview {...product} />
+                ))}
+              </div>
+            </Col>
+          </Row>
         </Container>
       )}
     </div>
