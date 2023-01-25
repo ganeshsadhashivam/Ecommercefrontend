@@ -5,8 +5,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 //setup store
 import store from "./store";
+//store to persist
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+import { PersistGate } from "redux-persist/es/integration/react";
 import persistStore from "redux-persist/es/persistStore";
 
 //store to persist

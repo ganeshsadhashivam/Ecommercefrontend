@@ -1,22 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import productsSlice from "./features/productsSlice";
+import productSlice from "./features/productSlice";
 
 import userSlice from "./features/userSlice";
 
 import appApi from "./services/appApi";
 
-//persist our store
+//persistent our store
+
 import storage from "redux-persist/lib/storage";
+
 import { combineReducers } from "redux";
+
 import { persistReducer } from "redux-persist";
+
 import thunk from "redux-thunk";
 
 //reducers
-
 const reducer = combineReducers({
   user: userSlice,
-  products: productsSlice,
+  products: productSlice,
   [appApi.reducerPath]: appApi.reducer,
 });
 
@@ -26,11 +29,10 @@ const persistConfig = {
   blackList: [appApi.reducerPath, "products"],
 };
 
-//persist our store
-
+//persist out store
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-// creating the store
+//create the store
 
 const store = configureStore({
   reducer: persistedReducer,

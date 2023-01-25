@@ -1,0 +1,15 @@
+.logout-btn {
+  margin: 0 auto;
+  display: block !important;
+}
+
+.logo {
+  width: 50px;
+}
+
+.new-product-image-container {
+  background-image: url(https://res.cloudinary.com/dafqu2slg/image/upload/v1674308826/productaddbg_gjnjkv.png);
+  /* background-size: cover;
+  background-position: center;
+  height: 100vh; */
+}
