@@ -5,7 +5,7 @@ import { useCreateProductMutation } from "../services/appApi";
 import "./NewProduct.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 
 const NewProduct = () => {
   const [name, setName] = useState("");
@@ -20,13 +20,14 @@ const NewProduct = () => {
 
   //For Remove Image
   const handleRemoveImage = (imgObj) => {
+    console.log(imgObj);
     setImgToRemove(imgObj.public_id);
     axios
       .delete(`/images/${imgObj.public_id}/`)
       .then((res) => {
         setImgToRemove(null);
         setImages((prev) =>
-          prev.filter((img) => img.public_id != imgObj.public_id)
+          prev.filter((img) => img.public_id !== imgObj.public_id)
         );
       })
       .catch((e) => console.log(e));
@@ -39,8 +40,9 @@ const NewProduct = () => {
       return alert("Please Fill out All the Fields");
     }
     createProduct({ name, description, price, category, images }).then(
-      (data) => {
+      ({ data }) => {
         if (data.length > 0) {
+          console.log(data.length);
           setTimeout(() => {
             navigate("/");
           }, 1500);
@@ -75,7 +77,7 @@ const NewProduct = () => {
           <Form style={{ width: "100%" }} onSubmit={handleSubmit}>
             <h1 className="mt-4">Create a Product</h1>
             {isSuccess && (
-              <Alert variant="danger">Product created with success</Alert>
+              <Alert variant="success">Product created with success</Alert>
             )}
             {isError && <Alert variant="danger">{error.data}</Alert>}
             <Form.Group className="mb-3">
@@ -133,10 +135,12 @@ const NewProduct = () => {
                 {images.map((image) => (
                   <div className="image-preview">
                     <img src={image.url} />
-                    <i
-                      className="fa fa-times-circle"
-                      onClick={handleRemoveImage}
-                    ></i>
+                    {imgToRemove != image.public_id && (
+                      <i
+                        className="fa fa-times-circle"
+                        onClick={() => handleRemoveImage(image)}
+                      ></i>
+                    )}
                   </div>
                 ))}
               </div>

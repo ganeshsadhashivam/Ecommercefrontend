@@ -3,8 +3,21 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import categories from "../categories";
 import { Row, Col } from "react-bootstrap";
+import axios from "../axios";
 import "./Home.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProducts } from "../features/productSlice";
+import ProductPreview from "../components/ProductPreview";
+import { useEffect } from "react";
 const Home = () => {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products);
+  const lastProducts = products.slice(0, 8);
+  console.log(lastProducts);
+  useEffect(() => {
+    axios.get("/products").then(({ data }) => dispatch(updateProducts(data)));
+  }, []);
+
   return (
     <div>
       <img
@@ -15,6 +28,11 @@ const Home = () => {
       <div className="featured-products-container container mt-4">
         <h2>Lastest Products</h2>
         {/*last products */}
+        <div className="d-flex justify-content-center flex-wrap">
+          {lastProducts.map((products, index) => (
+            <ProductPreview {...products} key={index} />
+          ))}
+        </div>
         <div>
           <Link
             to="/category/all"
