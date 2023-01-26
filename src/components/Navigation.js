@@ -36,6 +36,19 @@ const Navigation = () => {
             {/* <Nav.Link href="#link">Link</Nav.Link> */}
             {/* if user  */}
 
+            {user && !user.isAdmin && (
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  <i className="fas fa-shopping-cart"></i>
+                  {user?.cart.count > 0 && (
+                    <span className="badge badge-warning" id="cartcount">
+                      {user.cart.count}
+                    </span>
+                  )}
+                </Nav.Link>
+              </LinkContainer>
+            )}
+
             {user && (
               <NavDropdown title={user.email} id="basic-nav-dropdown">
                 {user.isAdmin && (
@@ -51,6 +64,7 @@ const Navigation = () => {
                     </NavDropdown.Item> */}
                   </>
                 )}
+
                 {!user.isAdmin && (
                   <>
                     <LinkContainer to="/cart">

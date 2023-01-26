@@ -18,12 +18,15 @@ import { useState } from "react";
 import "./ProductPage.css";
 import { LinkContainer } from "react-router-bootstrap";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { useAddToCartMutation } from "../services/appApi";
+import ToastMessage from "../components/ToastMessage";
 
 const ProductPage = () => {
   const { id } = useParams();
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
   const [similar, setSimilar] = useState(null);
+  const [addToCart, { isSuccess }] = useAddToCartMutation();
 
   const handleDragStart = (e) => {
     e.preventDefault();
@@ -98,13 +101,32 @@ const ProductPage = () => {
                 <option value="5">5</option>
                 <option value="6">6</option>
               </Form.Select>
-              <Button size="lg">Add To Cart</Button>
+              <Button
+                size="lg"
+                onClick={() =>
+                  addToCart({
+                    userId: user._id,
+                    productId: id,
+                    price: product.price,
+                    image: product.pictures[0].url,
+                  })
+                }
+              >
+                Add To Cart
+              </Button>
             </ButtonGroup>
           )}
           {user && user.isAdmin && (
             <LinkContainer to={`/product/${product._id}/edit`}>
               <Button size="lg">Edit Product</Button>
             </LinkContainer>
+          )}
+          {isSuccess && (
+            <ToastMessage
+              bg="info"
+              title="Added To Cart"
+              body={`${product.name} is in your cart `}
+            />
           )}
         </Col>
       </Row>

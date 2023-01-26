@@ -13,3 +13,24 @@
   background-position: center;
   height: 100vh; */
 }
+
+#cartcount {
+  font-size: 10px;
+  background-color: red;
+  color: white;
+  padding: 2px 4px;
+  vertical-align: top;
+  margin-left: -8px;
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  border-radius: 9px;
+}
+
+.fa-shopping-cart {
+  font-size: 20px;
+}
